@@ -1,5 +1,16 @@
 # LABORATORIO NÚMERO 3 DE SEÑALES
-Para este laboratorio, nuestro objetivo fue simular un escenario tipo "cóctel", en el que varios micrófonos capturan el sonido ambiente mientras diferentes personas conversan. La meta principal era aislar la voz de una sola persona a partir de las grabaciones.  
+Para este laboratorio, nuestro objetivo fue simular un escenario tipo "cóctel", en el que varios micrófonos capturan el sonido ambiente mientras diferentes personas conversan. La meta principal era aislar la voz de una sola persona a partir de las grabaciones. 
+
+
+## Configuración del sistema
+
+Para la grabación de los audios, nos dirigimos al laboratorio insonorizado de la universidad con el fin de minimizar interferencias y asegurar condiciones controladas. Dentro del laboratorio, colocamos una silla en el centro de la sala como punto de referencia. A cada extremo de la silla, posicionamos dos dispositivos móviles (utilizados como micrófonos) con una distancia equidistante respecto al centro, asegurando una simetría en la captura del sonido.
+
+Cada una de nosotras se ubicó a una distancia de nueve baldosas de la silla, enfrentándonos directamente. Esta disposición permitió una captura uniforme del sonido desde ambas posiciones, garantizando que las fuentes sonoras estuvieran alineadas y equidistantes respecto a los dispositivos de grabación.
+
+Para sincronizar la captura del audio y minimizar la variabilidad en el inicio de la grabación, realizamos una cuenta regresiva hasta cinco antes de comenzar a hablar. Nos aseguramos de que la grabación estuviera activa antes de iniciar el experimento para evitar pérdidas de datos y garantizar la consistencia en la adquisición del sonido ambiente y la voz.
+
+Esta configuración permitió un registro claro y estructurado de la propagación del sonido, con una distancia definida entre fuentes y micrófonos, asegurando la validez de los datos obtenidos.
 
 ```python
 import numpy as np
@@ -91,14 +102,129 @@ Con la anteriores lineas de codigo se va graficar el espectro de frecuencia:
 ![image](https://github.com/user-attachments/assets/f8f9d596-9cfe-4f03-b3a0-084c5bd93890)
 ![image](https://github.com/user-attachments/assets/95608ce1-fc49-4c0b-b6e4-3a7e3c7f24c2)
 
+Ahora, procedemos a graficar la forma de onda de cada señal
+```python
+for i, signal in enumerate(signals):
+    plt.figure(figsize=(8, 4))
+    librosa.display.waveshow(signal, sr=sr)
+    plt.title(f"Forma de onda de {files[i]}")
+    plt.xlabel("Tiempo (s)")
+    plt.ylabel("Amplitud")
+    plt.show()
+```
 
 
-## Configuración del sistema
+-	Recorre todas las señales de audio en signals con for i, signal in enumerate(signals): i es el índice del archivo (0 = sofia.mp3, 1 = geral.mp3, 2 = ruido.mp3). signal es el contenido de audio del archivo.
 
-Para la grabación de los audios, nos dirigimos al laboratorio insonorizado de la universidad con el fin de minimizar interferencias y asegurar condiciones controladas. Dentro del laboratorio, colocamos una silla en el centro de la sala como punto de referencia. A cada extremo de la silla, posicionamos dos dispositivos móviles (utilizados como micrófonos) con una distancia equidistante respecto al centro, asegurando una simetría en la captura del sonido.
+-	plt.figure(figsize=(8, 4)): Crea una nueva figura con tamaño de 8 pulgadas de ancho y 4 de alto.  Si no usáramos esta línea, las gráficas se verían muy pequeñas.
 
-Cada una de nosotras se ubicó a una distancia de nueve baldosas de la silla, enfrentándonos directamente. Esta disposición permitió una captura uniforme del sonido desde ambas posiciones, garantizando que las fuentes sonoras estuvieran alineadas y equidistantes respecto a los dispositivos de grabación.
+-	librosa.display.waveshow(signal, sr=sr): Dibuja la forma de onda de la señal con la frecuencia de muestreo (sr). Esto genera una curva que representa los cambios de amplitud del sonido en el tiempo.
 
-Para sincronizar la captura del audio y minimizar la variabilidad en el inicio de la grabación, realizamos una cuenta regresiva hasta cinco antes de comenzar a hablar. Nos aseguramos de que la grabación estuviera activa antes de iniciar el experimento para evitar pérdidas de datos y garantizar la consistencia en la adquisición del sonido ambiente y la voz.
 
-Esta configuración permitió un registro claro y estructurado de la propagación del sonido, con una distancia definida entre fuentes y micrófonos, asegurando la validez de los datos obtenidos.
+-	plt.title(f"Forma de onda de {files[i]}"): Agrega un título a la gráfica con el nombre del archivo (sofia.mp3, geral.mp3, etc.).
+
+-	plt.xlabel("Tiempo (s)") y plt.ylabel("Amplitud"): Se añaden etiquetas a los ejes para entender mejor la gráfica. El eje X representa el tiempo (segundos). El eje Y representa la amplitud del sonido.
+
+
+-	plt.show(): Muestra la gráfica en pantalla.
+
+
+Luego, graficamos el espectro de frecuencia (FFT)
+
+
+```python
+for i, signal in enumerate(signals):
+    N = len(signal)
+    T = 1.0 / sr
+    freqs = np.fft.fftfreq(N, T)[:N//2]
+    fft_vals = np.abs(fft(signal))[:N//2]    
+    plt.figure(figsize=(8, 4))
+    plt.plot(freqs, fft_vals)
+    plt.title(f"Espectro de {files[i]}")
+    plt.xlabel("Frecuencia (Hz)")
+    plt.ylabel("Magnitud FFT")
+    plt.show()
+```
+
+-	 len(signal): Se obtiene el tamaño de la señal con N donde, N indica cuántas muestras tiene el audio y cuanto mayor es N, más preciso será el análisis de frecuencia.
+
+
+-	1.0 / sr: Se calcula el tiempo entre muestras con T, esto nos dice cada cuánto se tomó una muestra de la señal.
+
+-	fft(signal): Se calcula la FFT de la señal, esto convierte la señal a su representación en frecuencia. Luego, se obtiene la magnitud absoluta de la FFT con np.abs(fft(signal)).
+
+-	 [:N//2]: Se filtran solo las frecuencias positivas , La FFT produce frecuencias positivas y negativas. Como el audio es una señal real, la mitad negativa es un reflejo de la positiva.
+
+-	plt.plot(freqs, fft_vals): Se grafica el espectro de frecuencia , Eje X (Frecuencia en Hz): Muestra qué frecuencias están en la señal. Eje Y (Magnitud de la FFT): Muestra cuánto contribuye cada frecuencia.
+
+
+Procedemos a aplicar FastICA para separar las voces
+
+
+```python
+ica = FastICA(n_components=len(signals)-1, max_iter=500)   # Excluye el ruido
+separated_sources = ica.fit_transform(signals[:-1].T).T  # Excluye la fila de ruido
+```
+
+-	FastICA(n_components=len(signals)-1, max_iter=500): Se define que queremos extraer n-1 componentes (porque el ruido no nos interesa). Se usa 500 iteraciones máximas para lograr una mejor separación.
+  
+-	ica.fit_transform(signals[:-1].T).T: 
+
+                      •	signals[:-1] → Excluye la última señal (ruido).
+                      •	.T → Transpone la matriz para que cada columna sea una fuente de audio.
+                      •	ica.fit_transform(...) → Aplica ICA para separar las fuentes.
+                      •	.T → Transpone de nuevo para obtener las señales separadas correctamente.
+
+ 
+  Después graficamos  las señales separadas
+
+  
+```python
+for i, source in enumerate(separated_sources):
+    plt.figure(figsize=(8, 4))
+    librosa.display.waveshow(source, sr=sr)
+    plt.title(f"Forma de onda de la voz separada {i+1}")
+    plt.xlabel("Tiempo (s)")
+    plt.ylabel("Amplitud")
+    plt.show()
+```
+
+-	for i, source in enumerate(separated_sources): i representa el índice de la señal separada. source es la señal separada correspondiente. Recorre todas las señales separadas para graficarlas una por una.
+
+-	plt.figure(figsize=(8, 4)) : Crea una nueva figura con tamaño de 8x4 pulgadas para que la gráfica sea legible.
+
+
+-	librosa.display.waveshow(source, sr=sr): Dibuja la forma de onda de la señal separada. sr=sr indica la frecuencia de muestreo para que el eje X esté en segundos.
+
+-	plt.title(f"Forma de onda de la voz separada {i+1}"): Agrega un título con el número de la señal separada (Voz separada 1, Voz separada 2, etc.).
+-	plt.xlabel("Tiempo (s)") y plt.ylabel("Amplitud"): Se agregan etiquetas en los ejes para entender la gráfica. Eje X: Representa el tiempo en segundos. Eje Y: Representa la amplitud de la señal (intensidad del sonido).
+
+-	plt.show(): Muestra la gráfica en pantalla.
+
+Por último, guardamos las voces separadas en Google Drive
+```python
+for i, source in enumerate(separated_sources):
+    output_file = os.path.join(base_path, f"voz_separada_{i+1}.mp3")
+    sf.write(output_file, source, sr)
+    print(f"Se guardó la voz separada {i+1} en: {output_file}")
+```
+-	for i, source in enumerate(separated_sources): Recorrer las señales separadas 
+                    •	i → Índice de la voz separada (0 para la primera voz, 1 para la segunda voz, etc.).
+                    •	source → Contiene la señal de audio separada por ICA.
+                    •	Con este bucle, guardamos cada voz en un archivo diferente.
+
+-	os.path.join(base_path, f"voz_separada_{i+1}.mp3"): Definir la ruta del archivo
+                    •	 base_path → Ruta de la carpeta en Google Drive (lab3)
+                    •	voz_separada_{i+1}.mp3 → Nombre del archivo ("voz_separada_1.mp3", "voz_separada_2.mp3", etc.).
+
+-	sf.write(output_file, source, sr): Guardar el archivo 
+                    •	sf.write() → Función de soundfile para guardar archivos de audio.
+                    •	output_file → Ruta donde se guardará el archivo (en Drive).
+                    •	source → Señal de audio separada.
+                    •	sr → Frecuencia de muestreo, para que el audio se reproduzca a la velocidad correcta.
+                    •	El resultado es que la voz separada se guarda en formato MP3 en Drive.
+-	print(f"Se guardó la voz separada {i+1} en: {output_file}"): Mostrar un mensaje de confirmación, esto imprime en pantalla la ruta del archivo guardado. Así puedes verificar que el archivo se guardó correctamente en Google Drive > lab3.
+
+
+
+
