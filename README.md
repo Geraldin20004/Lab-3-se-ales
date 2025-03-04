@@ -225,6 +225,25 @@ for i, source in enumerate(separated_sources):
                     •	El resultado es que la voz separada se guarda en formato MP3 en Drive.
 -	print(f"Se guardó la voz separada {i+1} en: {output_file}"): Mostrar un mensaje de confirmación, esto imprime en pantalla la ruta del archivo guardado. Así puedes verificar que el archivo se guardó correctamente en Google Drive > lab3.
 
+### Principales Métodos de Separación de Fuentes de Audio
+
+Para aislar una señal de interés a partir de múltiples señales capturadas por micrófonos, existen diversas técnicas de separación de fuentes. Cada método tiene enfoques específicos según el contexto y la complejidad del entorno acústico.  
+
+Análisis de Componentes Independientes (ICA)**  
+Basado en estadísticas, este método busca separar señales mezcladas en fuentes independientes asumiendo que son estadísticamente distintas. Utiliza descomposición matemática para maximizar la independencia entre las señales, siendo útil en la separación de voz en entornos ruidosos y el análisis de EEG.  
+
+-Beamforming  
+Esta técnica emplea una matriz de micrófonos para enfocar la captación de sonido en una dirección específica, reduciendo el ruido de otras fuentes. Es ampliamente utilizado en asistentes de voz, videoconferencias y audífonos inteligentes.  
+
+-Redes Neuronales (Deep Learning) 
+Métodos avanzados como *Deep Clustering* y *TasNet* permiten a las redes neuronales aprender representaciones de audio y separarlas con precisión, incluso en entornos ruidosos. Se aplican en asistentes virtuales y restauración de grabaciones antiguas.  
+
+-Factorización Matricial No Negativa (NMF)
+Descompone las señales en componentes base y pesos asociados, facilitando la identificación de patrones recurrentes. Se usa en la separación de señales musicales y en la mejora del habla en ambientes ruidosos.  
+
+-Transformada de Fourier de Tiempo Corto (STFT) 
+Convierte las señales al dominio de la frecuencia para aplicar enmascaramiento espectral, filtrando el ruido y resaltando la señal deseada. Es común en la reducción de ruido y la mejora de calidad en señales de audio.  
+
 
 
 
