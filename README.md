@@ -229,7 +229,7 @@ for i, source in enumerate(separated_sources):
 
 Para aislar una señal de interés a partir de múltiples señales capturadas por micrófonos, existen diversas técnicas de separación de fuentes. Cada método tiene enfoques específicos según el contexto y la complejidad del entorno acústico.  
 
-Análisis de Componentes Independientes (ICA)**  
+-Análisis de Componentes Independientes (ICA)
 Basado en estadísticas, este método busca separar señales mezcladas en fuentes independientes asumiendo que son estadísticamente distintas. Utiliza descomposición matemática para maximizar la independencia entre las señales, siendo útil en la separación de voz en entornos ruidosos y el análisis de EEG.  
 
 -Beamforming  
