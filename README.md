@@ -39,3 +39,12 @@ def calculate_snr(signal, noise):
 Dado que el SNR obtenido fue adecuado, se procedió con la siguiente etapa de la guía, la cual se detalla a continuación. Se llevó a cabo un análisis temporal y espectral de las señales captadas por cada micrófono, permitiendo identificar las características principales de cada fuente sonora. Para el análisis espectral, se empleó la Transformada Rápida de Fourier (FFT), facilitando la exploración de las frecuencias predominantes en cada señal.
 A continuacion se va explicar el codigo realizado para que la guia fuera posible y se va explicar para que sirve cada linea de codigo:
 
+## Configuración del sistema
+
+Para la grabación de los audios, nos dirigimos al laboratorio insonorizado de la universidad con el fin de minimizar interferencias y asegurar condiciones controladas. Dentro del laboratorio, colocamos una silla en el centro de la sala como punto de referencia. A cada extremo de la silla, posicionamos dos dispositivos móviles (utilizados como micrófonos) con una distancia equidistante respecto al centro, asegurando una simetría en la captura del sonido.
+
+Cada una de nosotras se ubicó a una distancia de nueve baldosas de la silla, enfrentándonos directamente. Esta disposición permitió una captura uniforme del sonido desde ambas posiciones, garantizando que las fuentes sonoras estuvieran alineadas y equidistantes respecto a los dispositivos de grabación.
+
+Para sincronizar la captura del audio y minimizar la variabilidad en el inicio de la grabación, realizamos una cuenta regresiva hasta cinco antes de comenzar a hablar. Nos aseguramos de que la grabación estuviera activa antes de iniciar el experimento para evitar pérdidas de datos y garantizar la consistencia en la adquisición del sonido ambiente y la voz.
+
+Esta configuración permitió un registro claro y estructurado de la propagación del sonido, con una distancia definida entre fuentes y micrófonos, asegurando la validez de los datos obtenidos.
