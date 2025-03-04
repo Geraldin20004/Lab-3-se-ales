@@ -89,6 +89,7 @@ for i, signal in enumerate(signals):
 Con la anteriores lineas de codigo se va graficar el espectro de frecuencia:
 ![image](https://github.com/user-attachments/assets/3e16bfb0-ea19-4bf1-8165-1a26854437a3)
 ![image](https://github.com/user-attachments/assets/f8f9d596-9cfe-4f03-b3a0-084c5bd93890)
+![image](https://github.com/user-attachments/assets/95608ce1-fc49-4c0b-b6e4-3a7e3c7f24c2)
 
 
 
