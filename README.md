@@ -69,6 +69,7 @@ for i, signal in enumerate(signals):
     plt.show()
 ```
 Esta parte del codigo nos permite graficar la onda de cada señal, permitiendo observar como varia en el tiempo.
+![image](https://github.com/user-attachments/assets/3bcf451d-990b-422f-8d20-b2c63392e2af)
 
 
 
