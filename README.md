@@ -70,6 +70,7 @@ for i, signal in enumerate(signals):
 ```
 Esta parte del codigo nos permite graficar la onda de cada señal, permitiendo observar como varia en el tiempo.
 ![image](https://github.com/user-attachments/assets/3bcf451d-990b-422f-8d20-b2c63392e2af)
+![image](https://github.com/user-attachments/assets/72b59d8b-ca77-4b5e-9e70-d161cfae8647)
 
 
 
