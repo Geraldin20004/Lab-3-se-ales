@@ -33,8 +33,7 @@ def calculate_snr(signal, noise):
 ```
     
   Por medio del codigo anterior se pudo calcular el SNR de cada audio donde nos dio los siguientes valores:
-![image](https://github.com/user-attachments/assets/ebc1fd66-c55b-40d2-bec5-329535ff2a30)
-![image](https://github.com/user-attachments/assets/c8f10ea4-a8db-4c9d-95c5-45efbc193324)
+
 
 Dado que el SNR obtenido fue adecuado, se procedió con la siguiente etapa de la guía, la cual se detalla a continuación. Se llevó a cabo un análisis temporal y espectral de las señales captadas por cada micrófono, permitiendo identificar las características principales de cada fuente sonora. Para el análisis espectral, se empleó la Transformada Rápida de Fourier (FFT), facilitando la exploración de las frecuencias predominantes en cada señal.
 A continuacion se va explicar el codigo realizado para que la guia fuera posible y se va explicar para que sirve cada linea de codigo:
