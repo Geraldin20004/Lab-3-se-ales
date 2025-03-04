@@ -71,6 +71,7 @@ for i, signal in enumerate(signals):
 Esta parte del codigo nos permite graficar la onda de cada señal, permitiendo observar como varia en el tiempo.
 
 
+
 ## Configuración del sistema
 
 Para la grabación de los audios, nos dirigimos al laboratorio insonorizado de la universidad con el fin de minimizar interferencias y asegurar condiciones controladas. Dentro del laboratorio, colocamos una silla en el centro de la sala como punto de referencia. A cada extremo de la silla, posicionamos dos dispositivos móviles (utilizados como micrófonos) con una distancia equidistante respecto al centro, asegurando una simetría en la captura del sonido.
