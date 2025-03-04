@@ -29,7 +29,30 @@ def calculate_snr(signal, noise):
     noise_power = np.mean(noise ** 2)  # Potencia del ruido
     return 10 * np.log10(signal_power / noise_power)  # SNR en dB
 ```
-    
+
+  ```python
+signals = []
+sr = None
+
+for file in file_paths:
+    signal, sr = librosa.load(file, sr=None)  # Carga el audio
+    signals.append(signal)
+```
+El objetivo de las anteriores lineas de codigos es que se puedan cargar multiples archivos de audio y almacenarlo,sr es la frecuencia de muestreo (cuántas veces por segundo se midió el audio). Despues de esto se ajustan las señales al mismo tamaño ya que hay algunas que tienen algunos segundos de mas.
+```python
+max_length = max(len(sig) for sig in signals)  # Encuentra la señal más larga
+signals = np.array([np.pad(sig, (0, max_length - len(sig))) for sig in signals])  # Rellena con ceros las señales más cortas
+```
+Si hay una señal que este corta se va rellenar con ceros para asegurar el mismo tiempo.Despues de esto se identifica el ruido y se calculo el SNR de la señales.
+
+```python
+ruido = signals[-1]  # Última señal es el ruido
+
+snr_values = {}
+for i in range(len(signals) - 1):  # Excluir el ruido
+    snr_values[files[i]] = calculate_snr(signals[i], ruido)
+    print(f"SNR de {files[i]}: {snr_values[files[i]]:.2f} dB")
+```
   Por medio del codigo anterior se pudo calcular el SNR de cada audio donde nos dio los siguientes valores:
   ![image](https://github.com/user-attachments/assets/26243aac-a000-47bd-aaef-f0342531bce6)
 
