@@ -71,6 +71,22 @@ for i, signal in enumerate(signals):
 Esta parte del codigo nos permite graficar la onda de cada señal, permitiendo observar como varia en el tiempo.
 ![image](https://github.com/user-attachments/assets/3bcf451d-990b-422f-8d20-b2c63392e2af)
 ![image](https://github.com/user-attachments/assets/72b59d8b-ca77-4b5e-9e70-d161cfae8647)
+![image](https://github.com/user-attachments/assets/32c6e2bc-1f9e-4622-b631-9aea4814e0d6)
+```python
+for i, signal in enumerate(signals):
+    N = len(signal)
+    T = 1.0 / sr
+    freqs = np.fft.fftfreq(N, T)[:N//2]
+    fft_vals = np.abs(fft(signal))[:N//2]
+    
+    plt.figure(figsize=(8, 4))
+    plt.plot(freqs, fft_vals)
+    plt.title(f"Espectro de {files[i]}")
+    plt.xlabel("Frecuencia (Hz)")
+    plt.ylabel("Magnitud FFT")
+    plt.show()
+```
+Con la anteriores lineas de codigo se va graficar el espectro de frecuencia:
 
 
 
