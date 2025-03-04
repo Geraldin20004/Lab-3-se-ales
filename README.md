@@ -87,6 +87,7 @@ for i, signal in enumerate(signals):
     plt.show()
 ```
 Con la anteriores lineas de codigo se va graficar el espectro de frecuencia:
+![image](https://github.com/user-attachments/assets/3e16bfb0-ea19-4bf1-8165-1a26854437a3)
 
 
 
