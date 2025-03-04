@@ -1,4 +1,5 @@
 # LABORATORIO NÚMERO 3 DE SEÑALES
+Para este laboratorio, nuestro objetivo fue simular un escenario tipo "cóctel", en el que varios micrófonos capturan el sonido ambiente mientras diferentes personas conversan. La meta principal era aislar la voz de una sola persona a partir de las grabaciones.  
 
 ```python
 import numpy as np
