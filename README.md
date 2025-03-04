@@ -54,12 +54,22 @@ for i in range(len(signals) - 1):  # Excluir el ruido
     print(f"SNR de {files[i]}: {snr_values[files[i]]:.2f} dB")
 ```
   Por medio del codigo anterior se pudo calcular el SNR de cada audio donde nos dio los siguientes valores:
+  
   ![image](https://github.com/user-attachments/assets/26243aac-a000-47bd-aaef-f0342531bce6)
-
-
 
 Dado que el SNR obtenido fue adecuado, se procedió con la siguiente etapa de la guía, la cual se detalla a continuación. Se llevó a cabo un análisis temporal y espectral de las señales captadas por cada micrófono, permitiendo identificar las características principales de cada fuente sonora. Para el análisis espectral, se empleó la Transformada Rápida de Fourier (FFT), facilitando la exploración de las frecuencias predominantes en cada señal.
 A continuacion se va explicar el codigo realizado para que la guia fuera posible y se va explicar para que sirve cada linea de codigo:
+```python
+for i, signal in enumerate(signals):
+    plt.figure(figsize=(8, 4))
+    librosa.display.waveshow(signal, sr=sr)
+    plt.title(f"Forma de onda de {files[i]}")
+    plt.xlabel("Tiempo (s)")
+    plt.ylabel("Amplitud")
+    plt.show()
+```
+Esta parte del codigo nos permite graficar la onda de cada señal, permitiendo observar como varia en el tiempo.
+
 
 ## Configuración del sistema
 
